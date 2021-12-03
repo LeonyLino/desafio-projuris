@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "4c36ab57-01f0-4a37-8dc3-c2e68fd72c32",
+		"name": "desafio-projuris-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar Ordem de Serviço",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"descObservacao\" : \"inicialmente sem observações extras\",\r\n    \"clienteDTO\" : {\r\n        \"nome\" : \"Leonny Lino\",\r\n        \"cpf\" : \"98765432110\",\r\n        \"endereco\" : \"rua marios duarte da costa\",\r\n        \"telefone\" : \"465465456465\",\r\n        \"email\" : \"leolino@email.com\"\r\n    },\r\n    \"equipamentosDTO\" : [\r\n        {\r\n            \"tipo\" : \"televisao 4\",\r\n            \"marca\" : \"samsumg\",\r\n            \"descProblema\" : \"qualquer outro problema\"\r\n        },\r\n        {\r\n            \"tipo\" : \"desktop 2\",\r\n            \"marca\" : \"qualquer um\",\r\n            \"descProblema\" : \"não ta ligando\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9999/desafio-projuris/ordem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"desafio-projuris",
+						"ordem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar ordens pendentes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"matriculaResponsavel\" : \"145236\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9999/desafio-projuris/ordem/pesquisar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"desafio-projuris",
+						"ordem",
+						"pesquisar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Todas as Ordens",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/desafio-projuris/ordem/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"desafio-projuris",
+						"ordem",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar inicio serviço responsavel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"11\",\r\n    \"matriculaResponsavel\" : \"145236\",\r\n    \"status\" : \"FINALIZAR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9999/desafio-projuris/ordem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"desafio-projuris",
+						"ordem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cadastrar nova observação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1\",\r\n    \"descObservacao\" : \"outra observação\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9999/desafio-projuris/ordem/addObservacao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"desafio-projuris",
+						"ordem",
+						"addObservacao"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

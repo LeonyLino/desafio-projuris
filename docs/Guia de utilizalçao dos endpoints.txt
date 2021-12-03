@@ -1,0 +1,72 @@
+endpoint: http://localhost:9999/desafio-projuris/ordem
+verbo http: POST
+-> Registra uma nova ordem de serviço.
+JSON:
+	{
+		"descObservacao" : "inicialmente sem observações extras",
+		"matriculaResponsavel" : "654321", //matricula responsável fica opcional, 
+											pois fica a critério de querer vincular um técnico 
+											responsável agora ou por outro endpoint(PUT)
+		"clienteDTO" : {
+			"nome" : "Lorenzzo Lino",
+			"cpf" : "98765432110", //caso este cpf já tenha sido cadastrado na base de dados, retorna e relaciona com os dados do mesmo.
+			"endereco" : "rua marios duarte da costa",
+			"telefone" : "839977445522",
+			"email" : "lorenzzolino@email.com"
+		},
+		"equipamentosDTO" : [
+			{
+				"tipo" : "televisao",
+				"marca" : "LG",
+				"descProblema" : "a tv não está conseguindo sintonizar nos canais"
+			},
+			{
+				"tipo" : "notebook",
+				"marca" : "dell",
+				"descProblema" : "Reiniciando devido está esquentando muito"
+			}
+		]
+	}
+
+---------------------------------------------------------
+endpoint: http://localhost:9999/desafio-projuris/ordem/pesquisar
+verbo http: GET
+->  Pesquisar por ordens de serviço pendentes por responsável.
+
+	OBS: pode pesquisar tanto por nome como por matrícula ou ambos.
+	
+JSON:	
+	{	
+		"nomeResposavel" : "nome",
+		"matriculaResponsavel" : "123456"
+	}
+
+--------------------------------------------------------
+endpoint: http://localhost:9999/desafio-projuris/ordem/listar
+verbo http: GET
+->  Busca todas as ordens cadastradas.
+
+
+--------------------------------------------------------
+endpoint: http://localhost:9999/desafio-projuris/ordem
+verbo http: PUT
+-> Faz um update na ordem atribuindo o responsável previamente cadastrado pela baseline.sql
+
+JSON:
+	{
+		"id" : "13", //id ordem de serviço
+		"matriculaResponsavel" : "145236",
+		"status" : "FINALIZAR" //valor que identifica se vai iniciar ou finalizar o serviço (INICIAR/FINALIZAR).
+	}
+	
+	
+-------------------------------------------------------
+endpoint: http://localhost:9999/desafio-projuris/ordem/addObservacao
+verbo http: POST
+-> Cadastra uma nova observação para a ordem de serviço.
+
+JSON:
+	{
+		"id" : "1",
+		"descObservacao" : "outra observação"
+	}
