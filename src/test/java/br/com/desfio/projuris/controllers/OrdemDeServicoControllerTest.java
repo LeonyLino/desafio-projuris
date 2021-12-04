@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,35 +23,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.desfio.projuris.model.Cliente;
 import br.com.desfio.projuris.model.OrdemDeServico;
 import br.com.desfio.projuris.model.Responsavel;
+import br.com.desfio.projuris.model.dto.ClienteDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class OrdemDeServicoControllerTest {
+class OrdemDeServicoControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 	private URI uri;
 	private ObjectMapper objectMapper;
 	OrdemDeServico ordem;
-
+	Cliente cliente;
+	ClienteDTO dto;
+	
 	@BeforeEach
 	public void iniciar() throws URISyntaxException {
 		this.objectMapper = new ObjectMapper();
 		this.uri = new URI("/ordem");
+		this.cliente = new Cliente(null, "LeonyLino", "12345678910", "rua fulano de tal", "839878556622",
+				"leony@email.com", Mockito.anyList());
 		this.ordem = new OrdemDeServico(new Cliente(), new Responsavel());
 	}
 
 	@Test
-	void deveriaRetornarStatus201_QuandoCadastrarUmaNovaOrdemDeServico() throws Exception {
-		mockMvc.perform(
-				MockMvcRequestBuilders.post(uri)
-						.content(objectMapper.writeValueAsString(new OrdemDeServico(
-								new Cliente(null, Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
-										Mockito.anyString(), Mockito.anyString(), new ArrayList<>()),
-								new Responsavel())))
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().is(201));
+	void deveriaRetornarStatus400_QuandoCadastrarUmaNovaOrdemDeServicoSemClientre() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post(uri)
+				.content(objectMapper.writeValueAsString(new OrdemDeServico(null, Boolean.FALSE, null, null,
+						null, null, Mockito.anyList(), Mockito.anyList())))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is(400));
 	}
 }

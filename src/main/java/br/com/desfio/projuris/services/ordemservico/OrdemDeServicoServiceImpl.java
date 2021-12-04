@@ -53,6 +53,10 @@ public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
 		}
 
 		OrdemDeServico ordem = this.salvar(dto, cliente, responsavel);
+		if(responsavel != null) {
+			ordem.setDataInicioServico(LocalDateTime.now());
+		}
+		
 		haService.salvar(new HistoricoAcompanhamento(null, dto.getDescObservacao(), LocalDateTime.now(), ordem));
 		ordem.setEquipamentos(eService.salvar(dto.getEquipamentosDTO(), ordem));
 
